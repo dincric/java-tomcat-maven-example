@@ -2,7 +2,7 @@ pipeline {
     
     agent any;
     environment {
-      DEMO = "test"
+      ARTIFACT_ID="bhd/javatest/${env.BRANCH_NAME}:${BUILD_NUMBER}"
     }
     stages{
         stage('Prepare'){
@@ -11,9 +11,36 @@ pipeline {
             }
         }
         stage('Build'){
+            agent {
+                docker {
+                    image 'maven:3-alpine' 
+                    args '-v /root/.m2:/root/.m2 --entrypoint='
+                    
+                }
+            }
+            steps{
+                //Limpiamos el workspace y compilamos
+                sh 'mvn -B -DskipTests clean  package' 
+            }
+                        
+                
+        }
+        stage('Test'){
          
             parallel{
-                stage('App Compilation'){
+                stage('Sonar Analysis'){
+                    agent {
+                        docker {
+                            image 'sonarsource/sonar-scanner-cli'
+                            args '-e SONAR_HOST_URL=http://foo.acme:9000 --entrypoint=""'
+                        }
+                    }
+                    steps{
+                        // sh 'sonar-scanner'
+                        sh 'echo test'
+                    }
+                }
+                stage('Unit Test'){
                     agent {
                         docker {
                             image 'maven:3-alpine' 
@@ -22,27 +49,18 @@ pipeline {
                         }
                     }
                     steps{
-                        sh 'ls'
-                        sh 'pwd'
-                        sh 'mvn -B -DskipTests clean package' 
-                    }
-                        
-                }
-                stage('Sonar Analysis'){
-                    steps{
-                        runSonarAnalysis()
-                    }
-                }
-                stage('Unit Test'){
-                    steps{
-                        echo 'Run Unit testing'
+                        sh 'mvn test' 
                     }
                 }
                 stage('Image Security Test'){
                     steps{
-                        echo 'image testing'
+                       labelledShell( label: "Construcción de la Imagen",
+                            script: 'docker build -t ${env.ARTIFACT_ID} .')
+
+                       aquaMicroscanner imageName: 'alpine:latest', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html'
                     }
                 }
+               
             }
         }
         stage('Package'){
@@ -52,7 +70,9 @@ pipeline {
             steps{
                 echo "Dockerhub upload"
             }
+            
         }
+        
         stage('Deploy'){
           //  agent { label DEPLOYMENT_NODE }
             when {
