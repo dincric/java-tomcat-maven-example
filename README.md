@@ -1,7 +1,4 @@
 #Jenkins Pipeline Test
-[TOCM]
-
-[TOC]
 
 ## Requerimiento
 
@@ -40,19 +37,61 @@ Para este projectos fueron necesarios los siguientes plugins de Jenkins:
 ##### Seguridad de Contenedores
 - [Aqua Security Scanner](https://plugins.jenkins.io/aqua-microscanner)
 
-## Paso a Paso
+## Configuración
 
 ### Pre Requisitos.
+- Crear Jenkinsfile en la raíz del repositorio
+- Crear Dockerfile en la raíz del repositorio
 - Crear proyecto en Sonar
 - [Cuenta de Microscanner de Aquasec](https://microscanner.aquasec.com/signup)
 - Haber instalado Docker en el servidor de Jenkins o alguno de sus nodos
+- Crear credenciales en Jenkins para:
+	- Github
+	- Dockerhub
 
+### Paso a Paso
 1. Instalar los plugins listados en la seccion [Plugins Necesarios](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/README.md "Plugins Necesarios")
 
 2. Configurar los plugins de acuerdo a la documentación de cada uno.
-
 
 3. En la ventana principal de nuestro Jenkins, Seleccionamos la opción "New Item"
 ![](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/readme-img/new-item.png)
 
 4. Crear Proyecto Multibranch Pipeline en Jenkins.
+![](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/readme-img/create-mulitbranch-pipeline.png)
+
+5. Indicamos desde que repositorio Jenkins debe traer el código fuente.
+![](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/readme-img/pipeline-source.png)
+
+6.  Indicamos que deseamos que busque el Jenkinsfile en la carpeta raíz de nuestro repo.
+![](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/readme-img/pipeline-jenkinsfile-location.png)
+
+7.  Guardamos nuestra configuración.
+![](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/readme-img/save-conf.png)
+
+8.  Jenkins escaneará todas nuestras ramas en busca de aquellas que posean un Jenkinsfile en la raíz.
+![](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/readme-img/branch-scanning-results.png)
+
+9.  Luego de escanear, inciará el proceso de ejecución de las instrucciones descritas en nuestro Jenkinsfile
+![](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/readme-img/scanned-master-branch.png)
+
+
+
+## Resultados
+
+#### Pipeline Results
+![](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/readme-img/pipeline-results.png)
+
+#### Pipeline Security Results
+![](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/readme-img/docker-image-security-results.png)
+
+![](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/readme-img/docker-image-vulnerabilities.png)
+
+![](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/readme-img/docker-image-malware.png)
+
+
+#### Sonar Results
+![](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/readme-img/sonar-qube-results.png)
+
+#### DockerHub Results
+![](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/readme-img/docker-hub-results.png)
