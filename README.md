@@ -49,10 +49,12 @@ Para este projectos fueron necesarios los siguientes plugins de Jenkins:
 - Crear proyecto en Sonar
 - Webhook creado en sonar apuntando a Jenkins
 - [Cuenta de Microscanner de Aquasec](https://microscanner.aquasec.com/signup)
-- Haber instalado Docker en el servidor de Jenkins o alguno de sus nodos
+- Instalar Docker en el servidor de Jenkins o alguno de sus nodos
+- Crear nodo con Kubernetes y asociarlo a Jenkins 
 - Crear credenciales en Jenkins para:
 	- Github
 	- Dockerhub
+	- Nodo de Ambiente Staging
 
 ### Paso a Paso
 1. Instalar los plugins listados en la seccion [Plugins Necesarios](https://github.com/frvasquezjaquez/java-tomcat-maven-example/blob/master/README.md "Plugins Necesarios")
