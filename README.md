@@ -1,7 +1,7 @@
 # Jenkins Pipeline Test
 
 El pipeline de este proyecto fue pensado para ser usado con una estrategia de feature-branches, 
-donde en las ramas vivas (features) diariamente deseo compilar, ejecutar pruebas unitarias, analisis de sonar y analisis de seguridad de las imagenes docker. Mientras que con las ramas larga vida (develop, release y master) deseo desplegar ambientes de pruebas automatizadas y UAT para posteriormente pasar a producción. 
+donde en las ramas vivas (features) diariamente vamos a compilar, ejecutar pruebas unitarias, analisis de sonar y analisis de seguridad de las imagenes docker. Mientras que con las ramas larga vida (develop, release y master) vamos desplegar ambientes de pruebas automatizadas, performance y UAT para posteriormente pasar a producción. 
 
 
 ## Requerimiento

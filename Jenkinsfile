@@ -97,7 +97,6 @@ pipeline {
                     withDockerRegistry([ credentialsId: "44a219b5-386c-49ae-96f1-a5a57af89886", url: "" ]){
                         def customImage = docker.build("${ARTIFACT_ID}")
                         customImage.push()
-                        customImage.push('latest')
                         
                     }
                 }
@@ -110,13 +109,10 @@ pipeline {
             when {
                 branch pattern: "development|release|master", comparator: "REGEXP"
             }
+            //options { skipDefaultCheckout() }  //No clonamos
 
             steps{
-                /*
-                    Lanzamos nuestros comandos de kubernetes en nuestro nodo
-                */ 
-                sh 'kubectl apply -f deploy/deployment.yml '
-                sh 'kubectl apply -f deploy/service.yml '
+                sh 'pwd'
             }
         }
         
@@ -176,5 +172,4 @@ def getDeploymentNode(){
         }
     }
 }
-
 
