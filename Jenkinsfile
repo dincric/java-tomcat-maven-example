@@ -177,6 +177,4 @@ def getDeploymentNode(){
     }
 }
 
-}
-
 
