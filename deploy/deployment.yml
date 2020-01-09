@@ -1,0 +1,25 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: maven-webapp-runner
+  labels:
+    app: maven-webapp-runner
+    version: v1
+spec:
+  replicas: 1 
+  selector:
+    matchLabels:
+      app: maven-webapp-runner
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: maven-webapp-runner
+        version: v1
+    spec:
+      containers:
+      - name: maven-webapp-runner
+        image: javierex/javatest:latest
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8086

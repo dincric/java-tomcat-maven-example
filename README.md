@@ -1,5 +1,9 @@
 # Jenkins Pipeline Test
 
+El pipeline de este proyecto fue pensado para ser usado con una estrategia de feature-branches, 
+donde en las ramas vivas (features) diariamente deseo compilar, ejecutar pruebas unitarias, analisis de sonar y analisis de seguridad de las imagenes docker. Mientras que con las ramas larga vida (develop, release y master) deseo desplegar ambientes de pruebas automatizadas y UAT para posteriormente pasar a producción. 
+
+
 ## Requerimiento
 
 Utilizando las herramientas necesarias generar un flujo que realice lo siguiente:
@@ -43,6 +47,7 @@ Para este projectos fueron necesarios los siguientes plugins de Jenkins:
 - Crear Jenkinsfile en la raíz del repositorio
 - Crear Dockerfile en la raíz del repositorio
 - Crear proyecto en Sonar
+- Webhook creado en sonar apuntando a Jenkins
 - [Cuenta de Microscanner de Aquasec](https://microscanner.aquasec.com/signup)
 - Haber instalado Docker en el servidor de Jenkins o alguno de sus nodos
 - Crear credenciales en Jenkins para:
